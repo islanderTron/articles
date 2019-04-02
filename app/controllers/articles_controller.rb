@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
     def new 
+        @article = Article.new 
     end
 
     # Save the data in the db
@@ -9,8 +10,12 @@ class ArticlesController < ApplicationController
         # @article = Article.new(params[:article])
         @article = Article.new(article_params)
 
-        @article.save
-        redirect_to @article
+        # Added validation form 
+        if @article.save
+            redirect_to @article
+        else 
+            render 'new'
+        end 
     end
 
     # Once form is submitted, it will redirect to: 
